@@ -1,13 +1,21 @@
 <template>
   <div class="input-container">
-    <input class="input" v-model="text" placeholder="Поиск по магазину">
-    <img class="icon-search" src="../assets/search.png">
-    <img v-if="!isEmpty" class="icon-clear" src="../assets/close.png" @click="onClickClear">
+    <input
+      class="input"
+      v-model="text"
+      placeholder="Search country"
+      @keyup.down="onPressDown"
+      autofocus
+      tabindex="1"
+    >
+    <img class="icon-search" src="../../../assets/search.png">
+    <img v-if="!isEmpty" class="icon-clear" src="../../../assets/close.png" @click="onClickClear">
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import { goToFocusElemByStep } from "../../../utils/helpers";
 
 export default {
   name: "Input",
@@ -15,10 +23,10 @@ export default {
   computed: {
     text: {
       get() {
-        return this.$store.state.searchStr;
+        return this.$store.state.storeSearch.searchStr;
       },
       set(value) {
-        this.$store.dispatch("updateValue", value);
+        this.$store.dispatch("storeSearch/updateValue", value);
       }
     },
     isEmpty() {
@@ -29,18 +37,23 @@ export default {
   methods: {
     onClickClear() {
       this.text = "";
+    },
+    onPressDown() {
+      goToFocusElemByStep();
     }
   }
 };
 </script>
 
 <style scoped lang="less">
-@import "../styles/variables.less";
+@import "../../../styles/variables.less";
 
 .input-container {
   position: relative;
   display: flex;
   align-items: center;
+  height: 40px;
+  width: 100%;
 }
 
 .icon-search {
@@ -64,16 +77,17 @@ export default {
 }
 
 .input {
-  height: 34px;
-  width: 467px;
+  height: 100%;
+  width: 100%;
+  font-size: 15px;
   border-radius: @project-radius;
   outline: none;
-  border: 1px solid lightgray;
-  padding-left: 30px;
+  border: none;
+  padding-left: 32px;
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 1px royalblue;
+    box-shadow: 0 0 0 1px #4e5560;
   }
 }
 </style>

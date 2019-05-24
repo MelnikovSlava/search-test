@@ -1,5 +1,5 @@
 <template>
-  <p>
+  <p class="text">
     <span
       :class="{bold: item.bold}"
       v-for="(item, i) in formatedText"
@@ -35,5 +35,9 @@ export default {
 <style scoped lang="less">
 .bold {
   font-weight: bold;
+}
+
+.text {
+  margin: 0;
 }
 </style>

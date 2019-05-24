@@ -1,26 +1,17 @@
-import Vuex from 'vuex';
-import Vue from 'vue';
 import { axiosInstance } from '../api/api';
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-  strict: process.env.NODE_ENV !== 'production',
+export default {
+  namespaced: true,
 
   state: {
-    searchStr: '',
-    countryList: null,
+    selectedCountryData: null,
     isLoading: false,
     error: null,
   },
 
   mutations: {
-    setValue(state, value) {
-      state.searchStr = value.trim();
-    },
-
     fetchSuccess(state, data) {
-      state.countryList = data;
+      state.selectedCountryData = data;
     },
 
     setLoading(state, isLoading) {
@@ -33,10 +24,10 @@ export default new Vuex.Store({
   },
 
   actions: {
-    getCountries({ commit, state }) {
-      const result = axiosInstance.get('', {
+    fetchCountry({ commit, state }, countryCode) {
+      const result = axiosInstance.get('/alpha', {
         params: {
-          fields: 'name',
+          codes: countryCode,
         },
       });
 
@@ -45,7 +36,7 @@ export default new Vuex.Store({
       result
         .then((response) => {
           if (response.status === 200) {
-            const data = response.data.map((item) => item.name);
+            const data = response.data[0];
 
             commit('fetchSuccess', data);
 
@@ -63,13 +54,5 @@ export default new Vuex.Store({
 
       return result;
     },
-
-    updateValue({ commit, state, dispatch }, value) {
-      commit('setValue', value);
-
-      if (state.countryList === null && !state.isLoading) {
-        dispatch('getCountries');
-      }
-    },
   },
-});
+};
