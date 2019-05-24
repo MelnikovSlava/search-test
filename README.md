@@ -1,16 +1,14 @@
-# search-test
+>##### Vue, Vuex, Less, Webpack
 
-## Project setup
-```
-npm install
-```
+## Запуск
 
-### Compiles and hot-reloads for development
-```
+```javascript
+npm i
 npm start
 ```
+## Задача
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Строка поиска с автодополнением.
+
+
+>##### Demo https://melnikovslava.github.io/search-test/index.html
