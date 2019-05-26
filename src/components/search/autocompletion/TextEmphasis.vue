@@ -35,9 +35,11 @@ export default {
 <style scoped lang="less">
 .bold {
   font-weight: bold;
+  color: darken(gray, 20);
 }
 
 .text {
   margin: 0;
+  color: lighten(gray, 10);
 }
 </style>
