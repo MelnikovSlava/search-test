@@ -17,6 +17,7 @@ export default {
     substr: String
   },
 
+  //TODO: bad, don't change props
   computed: {
     formatedText() {
       let startIndex = this.textstr.toLowerCase().indexOf(this.substr);
